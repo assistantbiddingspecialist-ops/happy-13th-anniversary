@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 13th Anniversary, Ang! ❤️</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      color: #4a4a4a;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(230, 150, 170, 0.3);
+      padding: 35px 25px;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.5s ease-in-out;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hidden {
+      display: none !important;
+      opacity: 0;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: #d85a7f;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: #b84065;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 50px;
+      border: 2px solid #f3a6b8;
+      outline: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      text-align: center;
+      color: #666;
+      background: #fff;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #f78ca0 0%, #f9748f 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 8px 15px rgba(247, 140, 160, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      color: #4a4a4a;
+    }
+
+    .error-msg {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .option-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .flower-img-wrapper {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+      border: 4px solid #fff;
+    }
+
+    .flower-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .letter-box {
+      background: #fffdfa;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #f3e5e8;
+      text-align: left;
+      max-height: 380px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: #444;
+      white-space: pre-line;
+    }
+
+    .music-player-bar {
+      margin-top: 15px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -10vh;
+      font-size: 1.5rem;
+      color: rgba(255, 182, 193, 0.6);
+      animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hearts-bg" id="hearts-container"></div>
+
+  <!-- STEP 1: DATE INPUT -->
+  <div class="card" id="date-card">
+    <h1>Our Special Date</h1>
+    <p>Please enter our anniversary date to unlock your surprise ❤️</p>
+    
+    <input type="date" id="anniv-input">
+    <div class="error-msg" id="error-msg">Incorrect date! Please try again. 💕</div>
+    
+    <button class="btn" onclick="checkDate()">Unlock ❤️</button>
+  </div>
+
+  <!-- STEP 2: MENU OPTIONS -->
+  <div class="card hidden" id="menu-card">
+    <h1>For My Love, Ang</h1>
+    <p>What would you like to open first?</p>
+    
+    <div class="option-grid">
+      <button class="btn" onclick="showScreen('flower-card')">💐 Beautiful Bouquet</button>
+      <button class="btn btn-secondary" onclick="showScreen('letter-card')">💌 Read My Letter</button>
+    </div>
+
+    <!-- Music Player Controls -->
+    <div class="music-player-bar">
+      <p style="margin-bottom:5px; font-size:0.8rem; font-weight:bold; color:#d85a7f;">🎵 Playing Background Music...</p>
+      <iframe id="yt-player" width="100%" height="60" src="" frameborder="0" allow="autoplay"></iframe>
+    </div>
+  </div>
+
+  <!-- STEP 3A: FLOWER DISPLAY -->
+  <div class="card hidden" id="flower-card">
+    <h2>Flowers For You 🌸</h2>
+    <div class="flower-img-wrapper">
+      <img src="flower.jpg" alt="Aesthetic Flower Bouquet" class="flower-img">
+    </div>
+    <button class="btn" onclick="showScreen('menu-card')">⬅️ Back to Options</button>
+  </div>
+
+  <!-- STEP 3B: LETTER DISPLAY -->
+  <div class="card hidden" id="letter-card">
+    <h2>My Message To You 📜</h2>
+    <div class="letter-box">
+Una ha ngatanan, damo gud nga salamat ha imo ha 13 ka tuig nga waray sawa ngan waray kataposan nga paghigugma ha akon. Salamat ha imo pagpailob, pagsabot, ngan pagpadayon kaupod ko bisan diri pirme masayon an aton mga gin-agian. 
+
+Damo na an nagbag-o ha aton sulod hin 13 ka tuig, pero usa la an akon sigurado—ikaw gihapon an akon karuyag nga maka-upod ha akon kinabuhi. 
+
+Ikaw an akon ginpili hadto, ikaw an akon ginpipili yana, ngan diri ko ginbabasolan nga ikaw an akon ginpili. Kay ha ngatanan nga nahitabo ha aton, ha mga kalipay man o kasakit, ikaw an tawo nga karuyag ko gihapon nga aada ha akon tupad. 
+
+Maaram ako nga diri perpekto an aton relasyon, pero sigurado ako nga tinuod an aton gugma. Ngan bisan damo pa nga pagsari an umabot, maaram ako nga mas magaan an bisan ano basta magkaupod kita. 
+
+Hirayo na gud an aton ginlakat, mahal, pero mas hirayo pa an akon karuyag nga lalakbayon kaupod ka. Diri ko karuyag nga an 13 ka tuig amo na an kataposan han aton istorya. Karuyag ko pa nga damo kita hinumdoman, damo nga damgo nga matuman, ngan damo pa nga adlaw nga aton pag-aalagaran. 
+
+Salamat kay ha sulod hin 13 ka tuig, waray mo ako pabay-i nga mag-inusara ha aton istorya. 
+
+Happy 13th Anniversary, Ang. ❤️
+
+Ikaw la gihapon. Kita la gihapon. Tubtob ha kataposan. 
+
+I LOVE YOU SO MUCH. ❤️
+    </div>
+    <button class="btn" onclick="showScreen('menu-card')">⬅️ Back to Options</button>
+  </div>
+
+  <script>
+    const CORRECT_DATE = "2013-09-26";
+    const YT_VIDEO_ID = "sD-DscFi9Yw";
+
+    function checkDate() {
+      const inputVal = document.getElementById('anniv-input').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      if (inputVal === CORRECT_DATE) {
+        errorMsg.style.display = 'none';
+        
+        // Start YouTube Music Player
+        const ytPlayer = document.getElementById('yt-player');
+        ytPlayer.src = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&loop=1&playlist=${YT_VIDEO_ID}`;
+
+        showScreen('menu-card');
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    function showScreen(screenId) {
+      const screens = ['date-card', 'menu-card', 'flower-card', 'letter-card'];
+      screens.forEach(id => {
+        const el = document.getElementById(id);
+        if (id === screenId) {
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+      heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+      
+      document.getElementById('hearts-container').appendChild(heart);
+
+      setTimeout(() => { heart.remove(); }, 8000);
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+</body>
+</html>
