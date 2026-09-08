@@ -18,12 +18,13 @@
     h1 { font-family: 'Great Vibes', cursive; font-size: 2.8rem; color: #d85a7f; margin-bottom: 10px; }
     h2 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #b84065; margin-bottom: 15px; }
     p { font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 20px; }
-    input[type="date"] { width: 100%; padding: 14px 18px; border-radius: 50px; border: 2px solid #f3a6b8; outline: none; text-align: center; background: #fff; margin-bottom: 15px; }
-    .btn { background: linear-gradient(135deg, #f78ca0 0%, #f9748f 100%); color: white; border: none; padding: 14px 28px; border-radius: 50px; font-size: 1rem; cursor: pointer; width: 100%; box-shadow: 0 8px 15px rgba(247, 140, 160, 0.4); transition: 0.3s; }
+    input[type="date"] { width: 100%; padding: 14px 18px; border-radius: 50px; border: 2px solid #f3a6b8; outline: none; text-align: center; background: #fff; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; }
+    .btn { background: linear-gradient(135deg, #f78ca0 0%, #f9748f 100%); color: white; border: none; padding: 14px 28px; border-radius: 50px; font-size: 1rem; cursor: pointer; width: 100%; box-shadow: 0 8px 15px rgba(247, 140, 160, 0.4); transition: 0.3s; font-weight: 500; }
     .btn-secondary { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); color: #4a4a4a; }
     .error-msg { color: #e74c3c; font-size: 0.85rem; margin-bottom: 15px; display: none; }
-    .flower-container { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 20px; border: 4px solid #fff; width: 100%; aspect-ratio: 1/1; background-color: #fce4ec; }
-    .letter-box { background: #fffdfa; border-radius: 16px; padding: 20px; border: 1px solid #f3e5e8; text-align: left; max-height: 380px; overflow-y: auto; margin-bottom: 20px; white-space: pre-line; }
+    .flower-wrapper { border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 20px; border: 4px solid #fff; max-height: 380px; }
+    .flower-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .letter-box { background: #fffdfa; border-radius: 16px; padding: 20px; border: 1px solid #f3e5e8; text-align: left; max-height: 380px; overflow-y: auto; margin-bottom: 20px; white-space: pre-line; font-size: 0.92rem; line-height: 1.8; color: #444; }
     .music-bar { margin-top: 15px; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
     .hearts-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
     .heart { position: absolute; bottom: -10vh; color: rgba(255, 182, 193, 0.6); animation: float linear infinite; }
@@ -33,6 +34,7 @@
 <body>
   <div class="hearts-bg" id="hearts-container"></div>
   
+  <!-- STEP 1: DATE UNLOCK -->
   <div class="card" id="date-card">
     <h1>Our Special Date</h1>
     <p>Please enter our anniversary date to unlock your surprise ❤️</p>
@@ -41,6 +43,7 @@
     <button class="btn" onclick="checkDate()">Unlock ❤️</button>
   </div>
 
+  <!-- STEP 2: MAIN MENU -->
   <div class="card hidden" id="menu-card">
     <h1>For My Love, Ang</h1>
     <p>What would you like to open first?</p>
@@ -54,12 +57,16 @@
     </div>
   </div>
 
+  <!-- STEP 3A: FLOWER PAGE -->
   <div class="card hidden" id="flower-card">
     <h2>Flowers For You 🌸</h2>
-    <div class="flower-container" id="flower-spot"></div>
+    <div class="flower-wrapper">
+      <img src="flower.jpg" alt="Aesthetic Flower Bouquet">
+    </div>
     <button class="btn" onclick="showScreen('menu-card')">⬅️ Back to Options</button>
   </div>
 
+  <!-- STEP 3B: LETTER PAGE -->
   <div class="card hidden" id="letter-card">
     <h2>My Message To You 📜</h2>
     <div class="letter-box">Una ha ngatanan, damo gud nga salamat ha imo ha 13 ka tuig nga waray sawa ngan waray kataposan nga paghigugma ha akon. Salamat ha imo pagpailob, pagsabot, ngan pagpadayon kaupod ko bisan diri pirme masayon an aton mga gin-agian. 
@@ -103,7 +110,6 @@ I LOVE YOU SO MUCH. ❤️
       });
     }
 
-    // Floating Hearts
     setInterval(() => {
       const heart = document.createElement('div'); heart.classList.add('heart'); heart.innerHTML = '❤️';
       heart.style.left = Math.random() * 100 + 'vw'; heart.style.animationDuration = Math.random() * 3 + 5 + 's';
