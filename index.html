@@ -25,7 +25,8 @@
     .flower-wrapper { border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 20px; border: 4px solid #fff; max-height: 380px; }
     .flower-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .letter-box { background: #fffdfa; border-radius: 16px; padding: 20px; border: 1px solid #f3e5e8; text-align: left; max-height: 380px; overflow-y: auto; margin-bottom: 20px; white-space: pre-line; font-size: 0.92rem; line-height: 1.8; color: #444; }
-    .music-bar { margin-top: 15px; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .music-bar { margin-top: 15px; background: rgba(255,255,255,0.9); padding: 12px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    audio { width: 100%; margin-top: 5px; outline: none; border-radius: 20px; }
     .hearts-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
     .heart { position: absolute; bottom: -10vh; color: rgba(255, 182, 193, 0.6); animation: float linear infinite; }
     @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
@@ -52,8 +53,11 @@
       <button class="btn btn-secondary" onclick="showScreen('letter-card')">💌 Read My Letter</button>
     </div>
     <div class="music-bar">
-      <p style="margin-bottom:5px; font-size:0.8rem; font-weight:bold; color:#d85a7f;">🎵 Playing Background Music...</p>
-      <iframe id="yt-player" width="100%" height="60" src="" frameborder="0" allow="autoplay"></iframe>
+      <p style="margin-bottom:5px; font-size:0.8rem; font-weight:bold; color:#d85a7f;">🎵 Playing Our Song...</p>
+      <audio id="bg-audio" controls loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     </div>
   </div>
 
@@ -92,16 +96,21 @@ I LOVE YOU SO MUCH. ❤️
 
   <script>
     const CORRECT_DATE = "2013-09-26";
-    const YT_VIDEO_ID = "sD-DscFi9Yw";
 
     function checkDate() {
       const inputVal = document.getElementById('anniv-input').value;
       const errorMsg = document.getElementById('error-msg');
       if (inputVal === CORRECT_DATE) {
         errorMsg.style.display = 'none';
-        document.getElementById('yt-player').src = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&loop=1&playlist=${YT_VIDEO_ID}`;
+        
+        // Play MP3 Audio
+        const audio = document.getElementById('bg-audio');
+        audio.play().catch(e => console.log("Autoplay blocked:", e));
+
         showScreen('menu-card');
-      } else { errorMsg.style.display = 'block'; }
+      } else { 
+        errorMsg.style.display = 'block'; 
+      }
     }
 
     function showScreen(screenId) {
